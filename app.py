@@ -51,10 +51,7 @@ def init_db():
         patient_id INTEGER,
         doctor_id INTEGER,
         date TEXT,
-<<<<<<< HEAD
         time TEXT,
-=======
->>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
         status TEXT
     )
     """)
@@ -199,26 +196,18 @@ def doctor_dashboard():
                            patients=patients,
                            doctor=username)
 
-<<<<<<< HEAD
-@app.route("/mark_done/<int:id>", methods=["POST"])
-def mark_done(id):
-=======
 @app.route("/complete/<int:id>")
 def complete(id):
     if session.get("role") != "doctor":
         return "Access Denied"
 
->>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
     conn = get_db()
     cur = conn.cursor()
 
     cur.execute("UPDATE appointments SET status='Completed' WHERE id=?", (id,))
     conn.commit()
-<<<<<<< HEAD
 
     return redirect("/doctor_dashboard")
-=======
->>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
     
 
     return redirect("/doctor_dashboard")
@@ -522,22 +511,12 @@ def appointments():
      cur.execute("""
         INSERT INTO appointments (patient_id, doctor_id, date,time, status)
         VALUES (?, ?,?, ?, ?)""", (patient_id, doctor_id, date,time, status))
-=======
      status = request.form["status"]
-
-     cur.execute("""
-        INSERT INTO appointments (patient_id, doctor_id, date, status)
-        VALUES (?, ?, ?, ?)""", (patient_id, doctor_id, date, status))
->>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
 
      conn.commit()
 
     # JOIN (IMPORTANT) 
-<<<<<<< HEAD
-    cur.execute(""" SELECT a.id, p.name, d.name, a.date,a.time, a.status 
-=======
     cur.execute(""" SELECT a.id, p.name, d.name, a.date, a.status 
->>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
                 FROM appointments a 
                 JOIN patients p ON a.patient_id = p.id 
                 JOIN doctors d ON a.doctor_id = d.id 
@@ -556,23 +535,14 @@ def edit_appointment(id):
 
     if request.method == "POST":
         date = request.form["date"]
-<<<<<<< HEAD
-        time = request.form["time"]
-=======
->>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
         status = request.form["status"]
 
         cur.execute("""
             UPDATE appointments
-<<<<<<< HEAD
             SET date=?,time=?, status=?
             WHERE id=?
         """, (date,time,status, id))
-=======
-            SET date=?, status=?
-            WHERE id=?
-        """, (date, status, id))
->>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
+
 
         conn.commit()
         return redirect("/appointments")
