@@ -232,6 +232,7 @@ tr:nth-child(even) {
     background: orange;
     color: white;
 }
+<<<<<<< HEAD
 .approved {
     background: rgb(68, 69, 126);
     color:white
@@ -240,6 +241,9 @@ tr:nth-child(even) {
     background: red;
     color: white;
 }
+=======
+
+>>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
 .done {
     background: green;
     color: white;

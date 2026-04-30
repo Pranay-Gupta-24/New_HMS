@@ -40,12 +40,18 @@
         </select>
 
         <input type="date" name="date" required>
+<<<<<<< HEAD
         <input type="time" name="time" required>
 
         <select name="status">
             <option>Pending</option>
             <option>Approved</option>
             <option>Cancelled</option>
+=======
+
+        <select name="status">
+            <option>Pending</option>
+>>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
             <option>Completed</option>
         </select>
 
@@ -62,7 +68,10 @@
             <th>Patient</th>
             <th>Doctor</th>
             <th>Date</th>
+<<<<<<< HEAD
             <th>Time</th>
+=======
+>>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
             <th>Status</th>
             <th>Actions</th>
         </tr>
@@ -72,6 +81,7 @@
             <td>{{a[1]}}</td>
             <td>{{a[2]}}</td>
             <td>{{a[3]}}</td>
+<<<<<<< HEAD
             <td>{{a[4]}}</td>
             <td>
     {% if a[5] == "Pending" %}
@@ -84,6 +94,15 @@
         <span class="status done">Completed</span>
     {% endif %}
 </td>
+=======
+            <td>
+                {% if a[4] == "Completed" %}
+                    <span class="status done">Completed</span>
+                {% else %}
+                    <span class="status pending">Pending</span>
+                {% endif %}
+            </td>
+>>>>>>> ae7fba269ac85cf07a8f2915ea5d591fc85af7e6
             <td>
     <a href="/edit_appointment/{{ a[0] }}" class="btn edit">Edit</a>
     <a href="/delete_appointment/{{ a[0] }}" class="btn delete"
