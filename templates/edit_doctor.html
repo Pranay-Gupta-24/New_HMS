@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Doctor</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f7fb;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 80px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            margin-top: 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <h2>Edit Doctor</h2>
+
+        <form method="POST">
+
+            <label>Name</label>
+            <input type="text" name="name" value="{{ doctor[1] }}">
+
+            <label>Specialization</label>
+            <input type="text" name="specialization" value="{{ doctor[2] }}">
+
+            <label>Fees</label>
+            <input type="number" name="fees" value="{{ doctor[3] }}">
+
+            <button class="btn" type="submit">Update</button>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

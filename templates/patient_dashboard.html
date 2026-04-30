@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='doctor_dashboard.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Patient Panel</div>
+    <div class="nav-links">
+        <a href="/patient_dashboard">Dashboard</a>
+        <a href="/patient_profile">Edit Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<!-- HEADER --> 
+ <h2>Welcome {{ user }}</h2> 
+ <p style="color: gray; margin-bottom:20px;"> Here are your upcoming and past appointments. </p> 
+ <!-- APPOINTMENTS CARD --> 
+  <div class="card"> 
+    <h3>My Appointments</h3> 
+    {% if appts %} 
+    <table> 
+        <thead> 
+            <tr> 
+                <th>Doctor</th> 
+                <th>Date</th> 
+                <th>Status</th> 
+            </tr> 
+        </thead> 
+        <tbody> {% for a in appts %}
+<tr>
+    <td>{{ a[0] }}</td>   <!-- Doctor -->
+    <td>{{ a[1] }}</td>   <!-- Date -->
+    <td>{{ a[2] }}</td>   <!-- Status -->
+</tr>
+{% endfor %}
+        </tbody> 
+    </table> 
+    {% else %} <p style="color: gray;">No appointments yet.</p> {% endif %} 
+  </div>
+
+</div>
+
+</body>
+</html>

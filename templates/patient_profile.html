@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Profile</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='doctor_dashboard.css') }}">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">Patient Panel</div>
+    <div class="nav-links">
+        <a href="/patient_dashboard">Dashboard</a>
+        <a href="/patient_profile">Edit Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+<h2>My Profile</h2>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert {{category}}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="card profile-card">
+
+    <form method="POST">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" value="{{patient[1]}}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" name="age" value="{{patient[2]}}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Sex</label>
+                <select name="sex">
+                    <option {% if patient[3]=='Male' %}selected{% endif %}>Male</option>
+                    <option {% if patient[3]=='Female' %}selected{% endif %}>Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Blood Group</label>
+                <input type="text" name="blood" value="{{patient[6]}}">
+            </div>
+
+            <div class="form-group full-width">
+                <label>Address</label>
+                <input type="text" name="address" value="{{patient[4]}}">
+            </div>
+
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" name="phone" value="{{patient[5]}}">
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn-primary">Update Profile</button>
+
+    </form>
+
+</div>
+
+</div>
+
+</body>
+</html>

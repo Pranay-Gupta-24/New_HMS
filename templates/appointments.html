@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">MediCare HMS</div>
+    <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/doctors">Doctors</a>
+        <a href="/patients">Patients</a>
+        <a href="/appointments">Appointments</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+<h2>Appointments</h2>
+
+<!-- FORM -->
+<div class="card">
+    <form method="post" class="form">
+
+        <select name="patient" required>
+            <option value="">Select Patient</option>
+            {% for p in patients %}
+            <option value="{{p[0]}}">{{p[1]}}</option>
+            {% endfor %}
+        </select>
+
+        <select name="doctor" required>
+            <option value="">Select Doctor</option>
+            {% for d in doctors %}
+            <option value="{{d[0]}}">{{d[1]}} (₹{{d[2]}})</option>
+            {% endfor %}
+        </select>
+
+        <input type="date" name="date" required>
+        <input type="time" name="time" required>
+
+        <select name="status">
+            <option>Pending</option>
+            <option>Approved</option>
+            <option>Cancelled</option>
+            <option>Completed</option>
+        </select>
+
+        <button>Book Appointment</button>
+    </form>
+</div>
+
+<!-- TABLE -->
+<div class="card">
+    <h3>Appointments List</h3>
+
+    <table>
+        <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for a in appts %}
+        <tr>
+            <td>{{a[1]}}</td>
+            <td>{{a[2]}}</td>
+            <td>{{a[3]}}</td>
+            <td>{{a[4]}}</td>
+            <td>
+    {% if a[5] == "Pending" %}
+        <span class="status pending">Pending</span>
+    {% elif a[5] == "Approved" %}
+        <span class="status approved">Approved</span>
+    {%elif a[5] == "Cancelled" %}
+        <span class="status cancelled">Cancelled</span>
+    {% else %}
+        <span class="status done">Completed</span>
+    {% endif %}
+</td>
+            <td>
+    <a href="/edit_appointment/{{ a[0] }}" class="btn edit">Edit</a>
+    <a href="/delete_appointment/{{ a[0] }}" class="btn delete"
+       onclick="return confirm('Delete this appointment?')">Delete</a>
+</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</div>
+
+</body>
+</html>

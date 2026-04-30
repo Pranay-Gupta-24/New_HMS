@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+        }
+
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #007bff;
+        }
+
+        .btn {
+            margin-top: 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <h2>Edit Appointment</h2>
+
+        <form method="POST">
+
+            <input type="hidden" name="id" value="{{ appointment[0] }}">
+
+            <label>Date</label>
+            <input type="date" name="date" value="{{ appointment[3] }}">
+            <label>Time</label>
+            <input type="time" name="time" value="{{appointment[4]}}" required>
+            <label>Status</label>
+            <select name="status">
+                <option value="Pending" {{ 'selected' if appointment[5]=='Pending' else '' }}>Pending</option>
+                <option value="Approved" {{ 'selected' if appointment[5]=='Approved' else '' }}>Approved</option>
+                <option value="Cancelled" {{ 'selected' if appointment[5]=='Cancelled' else '' }}>Cancelled</option>
+                <option value="Completed" {{ 'selected' if appointment[5]=='Completed' else '' }}>Completed</option>
+            </select>
+
+            <button class="btn" type="submit">Update</button>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
