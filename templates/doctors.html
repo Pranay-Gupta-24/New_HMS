@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctors</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">MediCare HMS</div>
+    <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/doctors">Doctors</a>
+        <a href="/patients">Patients</a>
+        <a href="/appointments">Appointments</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2>Doctors Management</h2>
+
+    <!-- FORM CARD -->
+    <div class="card">
+        <form method="post" class="form">
+    <input name="name" placeholder="Doctor Name" required>
+    <input name="spec" placeholder="Specialization" required>
+    <input name="fees" placeholder="Fees (₹)" required>
+
+    <input name="username" placeholder="Username" required>
+    <input name="password" placeholder="Password" required>
+
+    <button>Add Doctor</button>
+</form>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card">
+        <h3>Doctor List</h3>
+
+        <table>
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Specialization</th>
+    <th>Fees (₹)</th>
+    <th>Actions</th>
+</tr>
+
+{% for d in doctors %}
+<tr>
+    <td>{{d[0]}}</td>
+    <td>{{d[1]}}</td>
+    <td>{{d[2]}}</td>
+    <td>₹{{d[3]}}</td>
+    <td>
+        <a href="/edit_doctor/{{ d[0] }}" class="btn edit">Edit</a>
+        <a href="/delete_doctor/{{ d[0] }}" class="btn delete"
+           onclick="return confirm('Delete this doctor?')">Delete</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+    </div>
+
+</div>
+
+</body>
+</html>

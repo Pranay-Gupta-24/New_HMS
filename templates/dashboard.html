@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">MediCare HMS</div>
+    <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/doctors">Doctors</a>
+        <a href="/patients">Patients</a>
+        <a href="/appointments">Appointments</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+<h2>Admin Dashboard</h2>
+
+<!-- STATS -->
+<div class="cards">
+
+    <div class="card stat">
+        <div class="card-inner">
+            <div class="front">Total Patients</div>
+            <div class="back">{{patients}}</div>
+        </div>
+    </div>
+
+    <div class="card stat">
+        <div class="card-inner">
+            <div class="front">Total Doctors</div>
+            <div class="back">{{doctors}}</div>
+        </div>
+    </div>
+
+    <div class="card stat">
+        <div class="card-inner">
+            <div class="front">Total Appointments</div>
+            <div class="back">{{appointments}}</div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- WARDS -->
+<div class="cards">
+
+    <div class="card ward">Emergency</div>
+    <div class="card ward">ICU</div>
+    <div class="card ward">Normal Ward</div>
+    <div class="card ward">Critical Ward</div>
+
+</div>
+
+
+<!-- CHARTS -->
+<div class="charts">
+
+    <div class="chart-box">
+        <canvas id="barChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+        <canvas id="pieChart"></canvas>
+    </div>
+    <div class="chart-box">
+        <canvas id="specChart"></canvas>
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- SCRIPT -->
+<script>
+    // animated counter
+    function animateValue(id, start, end, duration) {
+        let range = end - start;
+        let stepTime = Math.abs(Math.floor(duration / range));
+        let current = start;
+        let increment = end > start ? 1 : -1;
+
+        let timer = setInterval(function () {
+            current += increment;
+            document.getElementById(id).innerText = current;
+            if (current == end) {
+                clearInterval(timer);
+            }
+        }, stepTime);
+    }
+
+    animateValue("patientsCount", 0, patients, 800);
+    animateValue("doctorsCount", 0, doctors, 800);
+    animateValue("appointmentsCount", 0, appointments, 800);
+
+
+    // BAR CHART
+    new Chart(document.getElementById("barChart"), {
+        type: 'bar',
+        data: {
+            labels: ["Patients", "Doctors", "Appointments"],
+            datasets: [{
+                label: "Hospital Data",
+                data: [patients, doctors, appointments],
+            }]
+        }
+    });
+
+    // PIE CHART (WARDS)
+    new Chart(document.getElementById("pieChart"), {
+        type: 'pie',
+        data: {
+            labels: ["Emergency", "ICU", "Normal", "Critical"],
+            datasets: [{
+                data: [5, 3, 8, 2]   // you can make dynamic later
+            }]
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const patients = Number("{{ patients }}");
+    const doctors = Number("{{ doctors }}");
+    const appointments = Number("{{ appointments }}");
+
+    // BAR CHART
+    new Chart(document.getElementById("barChart"), {
+        type: 'bar',
+        data: {
+            labels: ["Patients", "Doctors", "Appointments"],
+            datasets: [{
+                label: "Hospital Stats",
+                data: [patients, doctors, appointments],
+               backgroundColor: ["#3498db", "#2ecc71", "#f39c12"]
+            }]
+        }
+    });
+
+    // PIE CHART
+    new Chart(document.getElementById("pieChart"), {
+        type: 'pie',
+        data: {
+            labels: ["Emergency", "ICU", "Normal", "Critical"],
+            datasets: [{
+                data: [5, 3, 8, 2],
+                backgroundColor: ["#e74c3c", "#9b59b6", "#3498db", "#f1c40f"]
+            }]
+        }
+
+    });
+
+
+    new Chart(document.getElementById("barChart"), {
+    type: 'bar',
+    data: {
+        labels: ["Patients", "Doctors", "Appointments"],
+        datasets: [{
+            label: "Hospital Stats",
+            data: [patients, doctors, appointments],
+            backgroundColor: ["#3498db", "#2ecc71", "#f39c12"]
+        }]
+    }
+});
+
+// NEW: DOCTOR SPECIALIZATION CHART
+
+const specLabels = JSON.parse('{{ spec_labels|tojson|safe }}');
+const specValues = JSON.parse('{{ spec_values|tojson|safe }}');
+new Chart(document.getElementById("specChart"), {
+    type: 'bar',
+    data: {
+        labels: specLabels,
+        datasets: [{
+            label: "Doctors by Specialization",
+            data: specValues,
+            backgroundColor: "#1abc9c"
+        }]
+    }
+});
+</script>
+</body>
+</html>

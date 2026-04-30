@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='doctor_dashboard.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Doctor Panel</div>
+    <div class="nav-links">
+        <a href="/doctor_dashboard">Dashboard</a>
+        <a href="/doctor_profile">Edit Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+<h2>Welcome Dr. {{doctor}}</h2>
+
+<!-- PATIENTS -->
+<div class="card">
+    <h3>My Patients</h3>
+    <ul>
+        {% for p in patients %}
+        <li>{{p[0]}}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- APPOINTMENTS -->
+<div class="card">
+    <h3>My Appointments</h3>
+
+    <table>
+        <tr>
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for a in appts %}
+        <tr>
+            <td>{{a[1]}}</td>
+            <td>{{a[2]}}</td>
+            <td>{{a[3]}}</td>
+            <td>
+                <a href="/complete/{{a[0]}}">Mark Done</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login | MediCare HMS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+
+        <h2>MediCare HMS</h2>
+        <p class="subtitle">Secure Login Portal</p>
+
+        <!-- STATS -->
+        <div class="stats">
+            <div class="box">
+                <h3>{{patients}}</h3>
+                <p>Patients</p>
+            </div>
+            <div class="box">
+                <h3>{{doctors}}</h3>
+                <p>Doctors</p>
+            </div>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <form method="POST">
+
+            <input type="text" name="username" placeholder="Username" required>
+
+            <input type="password" name="password" placeholder="Password" required>
+
+            <select name="role" required>
+                <option value="">Select Role</option>
+                <option value="admin">Admin</option>
+                <option value="doctor">Doctor</option>
+                <option value="patient">Patient</option>
+            </select>
+
+            <button type="submit">Login</button>
+
+        </form>
+
+        <!-- GUEST -->
+        <a href="/guest" class="guest">Continue as Guest</a>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+        <img src="{{ url_for('static', filename='images/doctor.webp') }}">
+        
+    </div>
+
+</div>
+
+</body>
+</html>
